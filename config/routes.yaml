@@ -1,3 +1,19 @@
+products:
+  path: /bilemo/products
+  controller: App\Controller\ProductsController::ShowProducts
+
+singleproducts:
+  path: /bilemo/products/{id}
+  controller: App\Controller\ProductsController::ShowSingleProducts
+
+clients:
+  path: /bilemo/clients/{usersid}
+  controller: App\Controller\ClientsController::ShowClients
+
+singleclients:
+  path: /bilemo/clients/{usersid}/{clientsid}
+  controller: App\Controller\ClientsController::ShowSingleClients
+
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
