@@ -56,13 +56,6 @@ class ClientsController extends AbstractController
   }
 
   public function AddClient($usersid, Request $request): Response
-  {
-    return new Response($this->twig->render('form.html.twig', [
-        'usersid' => $usersid
-      ]));
-  }
-
-  public function AddClientValide($usersid, Request $request): Response
     {
         $client = new Clients();
 
@@ -97,9 +90,7 @@ class ClientsController extends AbstractController
         $this->em->persist($client);
         $this->em->flush();
 
-        return $this->redirectToRoute('clients', array(
-          'usersid' => $usersid
-        ));
+        return api_response('OK', 200);
       }
 
       public function DeleteClient($usersid, $clientsid, Request $request): Response
@@ -111,9 +102,7 @@ class ClientsController extends AbstractController
           $this->em->remove($client);
           $this->em->flush();
 
-          return $this->redirectToRoute('clients', array(
-            'usersid' => $usersid
-          ));
+          return api_response('OK', 200);
 
       }
 

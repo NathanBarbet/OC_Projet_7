@@ -1,4 +1,10 @@
 {
+    "andrey-helldar/api-response": {
+        "version": "v5.3.0"
+    },
+    "andrey-helldar/support": {
+        "version": "v1.20.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
