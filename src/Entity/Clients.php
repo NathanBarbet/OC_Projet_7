@@ -133,7 +133,7 @@ class Clients
         return $this->number;
     }
 
-    public function setNumber(int $number): self
+    public function setNumber(string $number): self
     {
         $this->number = $number;
 
@@ -157,7 +157,7 @@ class Clients
         return $this->postalCode;
     }
 
-    public function setPostalCode(int $postalCode): self
+    public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
 
