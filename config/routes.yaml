@@ -1,44 +1,29 @@
 products:
   path: /bilemo/products
   controller: App\Controller\ProductsController::ShowProducts
-  methods: [GET]
-  requirements:
-    _method: GET
 
 singleproducts:
   path: /bilemo/products/{id}
   controller: App\Controller\ProductsController::ShowSingleProducts
-  methods: [GET]
-  requirements:
-    _method: GET
+
 
 addclient:
   path: /bilemo/clients/{usersid}/addclient
   controller: App\Controller\ClientsController::AddClient
-  methods: [POST]
-  requirements:
-    _method: POST
+
 
 deleteclient:
   path: /bilemo/clients/{usersid}/delclient/{clientsid}
   controller: App\Controller\ClientsController::DeleteClient
-  methods:  [DELETE]
-  requirements:
-    _method: DELETE
 
 clients:
   path: /bilemo/clients/{usersid}
   controller: App\Controller\ClientsController::ShowClients
-  methods: [GET]
-  requirements:
-    _method: GET
 
 singleclients:
   path: /bilemo/clients/{usersid}/{clientsid}
   controller: App\Controller\ClientsController::ShowSingleClients
-  methods: [GET]
-  requirements:
-    _method: GET
+
 
 
 #index:

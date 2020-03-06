@@ -23,6 +23,8 @@ class ProductsController extends AbstractController
   public function ShowProducts(SerializerInterface $serialize, Request $request): Response
   {
 
+    if ($request->isMethod('GET')) {
+
       $repository = $this->getDoctrine()->getRepository(Products::class);
       $products = $repository->findAllProducts();
 
@@ -33,20 +35,38 @@ class ProductsController extends AbstractController
 
       return $response;
 
+    }
+
+    else {
+      return api_response('Utiliser la methode GET', 405);
+    }
+
   }
 
   public function ShowSingleProducts($id, SerializerInterface $serialize, Request $request): Response
   {
 
+    if ($request->isMethod('GET')) {
+
       $repository = $this->getDoctrine()->getRepository(Products::class);
       $products = $repository->findOneBy(['id' => $id]);
 
+      if (!empty($products)) {
       $data = $serialize->serialize($products, 'json');
 
       $response = new Response($data);
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
+    }
+      else {
+        return api_response('Ce produit n existe pas', 404);
+      }
+    }
+
+    else {
+      return api_response('Utiliser la methode GET', 405);
+    }
 
   }
 }
