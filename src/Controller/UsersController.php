@@ -2,22 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
 use App\Entity\Clients;
+use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ClientsRepository;
+use App\Repository\UsersRepository;
 use JMS\Serializer\SerializerInterface;
 
-class ClientsController extends AbstractController
+class UsersController extends AbstractController
 {
 
   private $twig;
 
-  public function __construct(ClientsRepository $repository, EntityManagerInterface $em, Environment $twig)
+  public function __construct(UsersRepository $repository, EntityManagerInterface $em, Environment $twig)
   {
     $this->repository = $repository;
     $this->em = $em;
@@ -25,15 +25,15 @@ class ClientsController extends AbstractController
   }
 
 
-  public function ShowClients($usersid, SerializerInterface $serialize, Request $request): Response
+  public function ShowUsers($clientsid, SerializerInterface $serialize, Request $request): Response
   {
 
     if ($request->isMethod('GET')) {
 
-      $repository = $this->getDoctrine()->getRepository(Clients::class);
-      $clients = $repository->findAllClients($usersid);
+      $repository = $this->getDoctrine()->getRepository(Users::class);
+      $users = $repository->findAllUsers($clientsid);
 
-      $data = $serialize->serialize($clients, 'json');
+      $data = $serialize->serialize($users, 'json');
 
       $response = new Response($data);
       $response->headers->set('Content-Type', 'application/json');
@@ -46,16 +46,16 @@ class ClientsController extends AbstractController
     }
   }
 
-  public function ShowSingleClients($usersid, $clientsid, SerializerInterface $serialize, Request $request): Response
+  public function ShowSingleUsers($clientsid, $usersid, SerializerInterface $serialize, Request $request): Response
   {
 
     if ($request->isMethod('GET')) {
 
-      $repository = $this->getDoctrine()->getRepository(Clients::class);
-      $clients = $repository->findSingleClients($usersid, $clientsid);
+      $repository = $this->getDoctrine()->getRepository(Users::class);
+      $users = $repository->findSingleUsers($clientsid, $usersid);
 
-      if (!empty($clients)) {
-      $data = $serialize->serialize($clients, 'json');
+      if (!empty($users)) {
+      $data = $serialize->serialize($users, 'json');
 
       $response = new Response($data);
       $response->headers->set('Content-Type', 'application/json');
@@ -63,7 +63,7 @@ class ClientsController extends AbstractController
       return $response;
     }
       else {
-        return api_response('Ce client n existe pas', 404);
+        return api_response('Cet utilisateur n existe pas', 404);
       }
     }
 
@@ -72,47 +72,47 @@ class ClientsController extends AbstractController
     }
   }
 
-  public function AddClient($usersid, Request $request): Response
+  public function AddUser($clientsid, Request $request): Response
     {
 
       if ($request->isMethod('POST')) {
 
-        $client = new Clients();
+        $user = new Users();
 
         // vérification nom
         $name = htmlspecialchars(filter_input(INPUT_POST, 'name'));
         if (isset($name) && ctype_alpha($name)) {
-          $client->setName($name);
+          $user->setName($name);
         }
         else {
-          return api_response('Nom du client invalide', 400);
+          return api_response('Nom utilisateur invalide', 400);
         }
         // ***
 
         // vérification prénom
         $firstname = htmlspecialchars(filter_input(INPUT_POST, 'firstname'));
         if (isset($firstname) && ctype_alpha($firstname)) {
-          $client->setFirstname($firstname);
+          $user->setFirstname($firstname);
         }
         else {
-          return api_response('Prénom du client invalide', 400);
+          return api_response('Prénom utilisateur invalide', 400);
         }
         // ***
 
         // vérification email
         $email = htmlspecialchars(filter_input(INPUT_POST, 'email'));
         if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-          $client->setEmail($email);
+          $user->setEmail($email);
         }
         else {
-          return api_response('Email du client invalide', 400);
+          return api_response('Email utilisateur invalide', 400);
         }
         // ***
 
         // vérification numero de rue
         $number = htmlspecialchars(filter_input(INPUT_POST, 'number'));
         if (isset($number) && is_numeric($number)) {
-          $client->setNumber($number);
+          $user->setNumber($number);
         }
         else {
           return api_response('Numero de rue invalide, utiliser seulement des chiffres', 400);
@@ -122,17 +122,17 @@ class ClientsController extends AbstractController
         // vérification rue
         $street = htmlspecialchars(filter_input(INPUT_POST, 'street'));
         if (isset($street) && ctype_alpha($street)) {
-          $client->setStreet($street);
+          $user->setStreet($street);
         }
         else {
-          return api_response('Rue du client invalide', 400);
+          return api_response('Rue utilisateur invalide', 400);
         }
         // ***
 
         // vérification code postal
         $postalCode = htmlspecialchars(filter_input(INPUT_POST, 'postalCode'));
         if (isset($postalCode) && is_numeric($postalCode)) {
-          $client->setPostalCode($postalCode);
+          $user->setPostalCode($postalCode);
         }
         else {
           return api_response('Code postal invalide', 400);
@@ -142,10 +142,10 @@ class ClientsController extends AbstractController
         // vérification ville
         $city = htmlspecialchars(filter_input(INPUT_POST, 'city'));
         if (isset($city) && ctype_alpha($city)) {
-          $client->setCity($city);
+          $user->setCity($city);
         }
         else {
-          return api_response('Ville du client invalide', 400);
+          return api_response('Ville utilisateur invalide', 400);
         }
         // ***
 
@@ -155,21 +155,21 @@ class ClientsController extends AbstractController
         {
         	$meta_carac = array("-", ".", " ");
         	$tel = str_replace($meta_carac, "", $tel);
-        	$client->setTel($tel);
+        	$user->setTel($tel);
         }
         else {
-          return api_response('Numéro de téléphone du client invalide', 400);
+          return api_response('Numéro de téléphone utilisateur invalide', 400);
         }
         // ***
 
-        $repository = $this->getDoctrine()->getRepository(Users::class);
-        $user = $repository->findOneBy(['id' => $usersid]);
-        $client->setUser($user);
+        $repository = $this->getDoctrine()->getRepository(Clients::class);
+        $client = $repository->findOneBy(['id' => $clientsid]);
+        $user->setClient($client);
 
-        $this->em->persist($client);
+        $this->em->persist($user);
         $this->em->flush();
 
-        return api_response('Le client à été ajouter', 200);
+        return api_response('L utilisateur à été ajouter', 200);
       }
 
       else {
@@ -177,23 +177,23 @@ class ClientsController extends AbstractController
       }
     }
 
-      public function DeleteClient($usersid, $clientsid, Request $request): Response
+      public function DeleteUser($usersid, $clientsid, Request $request): Response
       {
 
         if ($request->isMethod('DELETE')) {
 
-          $repository = $this->getDoctrine()->getRepository(Clients::class);
-          $client = $repository->findOneBy(['id' => $clientsid, 'user' => $usersid]);
+          $repository = $this->getDoctrine()->getRepository(Users::class);
+          $user = $repository->findOneBy(['id' => $usersid, 'client' => $clientsid]);
 
-          if (!empty($client)) {
-          $this->em->remove($client);
+          if (!empty($user)) {
+          $this->em->remove($user);
           $this->em->flush();
 
-          return api_response('Le client à été supprimer', 200);
+          return api_response('L utilisateur à été supprimer', 200);
           }
 
           else {
-            return api_response('Ce client n existe pas', 404);
+            return api_response('Cet utilisateur n existe pas', 404);
           }
         }
 

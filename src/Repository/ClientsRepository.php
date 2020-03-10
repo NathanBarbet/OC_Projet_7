@@ -19,26 +19,6 @@ class ClientsRepository extends ServiceEntityRepository
         parent::__construct($registry, Clients::class);
     }
 
-    public function findAllClients($usersid)
-    {
-      return $this->createQueryBuilder('c')
-          ->select('c.id,c.name,c.firstname,c.email')
-          ->where("c.user = $usersid")
-          ->orderBy('c.id')
-          ->getQuery()
-          ->getResult();
-    }
-
-    public function findSingleClients($usersid, $clientsid)
-    {
-      return $this->createQueryBuilder('c')
-          ->select('c.id,c.name,c.firstname,c.email,c.number,c.street,c.postalCode,c.city,c.tel')
-          ->where("c.user = $usersid")
-          ->andWhere("c.id = $clientsid")
-          ->getQuery()
-          ->getResult();
-    }
-
     // /**
     //  * @return Clients[] Returns an array of Clients objects
     //  */

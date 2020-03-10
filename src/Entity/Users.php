@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="users", indexes={@ORM\Index(name="Client_ID", columns={"Client_ID"})})
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
 class Users
@@ -31,16 +31,61 @@ class Users
     /**
      * @var string
      *
+     * @ORM\Column(name="Firstname", type="string", length=255, nullable=false)
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="Number", type="integer", nullable=false)
+     */
+    private $number;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="Password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Street", type="string", length=255, nullable=false)
      */
-    private $password;
+    private $street;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Postal_code", type="integer", nullable=false)
+     */
+    private $postalCode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="City", type="string", length=255, nullable=false)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Tel", type="string", length=50, nullable=false)
+     */
+    private $tel;
+
+    /**
+     * @var \Clients
+     *
+     * @ORM\ManyToOne(targetEntity="Clients")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Client_ID", referencedColumnName="ID")
+     * })
+     */
+    private $client;
 
     public function getId(): ?int
     {
@@ -59,6 +104,18 @@ class Users
         return $this;
     }
 
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -71,14 +128,74 @@ class Users
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getNumber(): ?int
     {
-        return $this->password;
+        return $this->number;
     }
 
-    public function setPassword(string $password): self
+    public function setNumber(int $number): self
     {
-        $this->password = $password;
+        $this->number = $number;
+
+        return $this;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(string $street): self
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?int
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(int $postalCode): self
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getClient(): ?Clients
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Clients $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }

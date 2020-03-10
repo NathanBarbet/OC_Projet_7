@@ -7,22 +7,22 @@ singleproducts:
   controller: App\Controller\ProductsController::ShowSingleProducts
 
 
-addclient:
-  path: /bilemo/clients/{usersid}/addclient
-  controller: App\Controller\ClientsController::AddClient
+adduser:
+  path: /bilemo/users/{clientsid}/adduser
+  controller: App\Controller\UsersController::AddUser
 
 
-deleteclient:
-  path: /bilemo/clients/{usersid}/delclient/{clientsid}
-  controller: App\Controller\ClientsController::DeleteClient
+deleteuser:
+  path: /bilemo/users/{clientsid}/deluser/{usersid}
+  controller: App\Controller\UsersController::DeleteUser
 
-clients:
-  path: /bilemo/clients/{usersid}
-  controller: App\Controller\ClientsController::ShowClients
+users:
+  path: /bilemo/users/{clientsid}
+  controller: App\Controller\UsersController::ShowUsers
 
-singleclients:
-  path: /bilemo/clients/{usersid}/{clientsid}
-  controller: App\Controller\ClientsController::ShowSingleClients
+singleuser:
+  path: /bilemo/users/{clientsid}/{usersid}
+  controller: App\Controller\UsersController::ShowSingleUsers
 
 
 
