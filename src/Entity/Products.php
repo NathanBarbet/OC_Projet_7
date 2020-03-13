@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * Products
  *
  * @ORM\Table(name="products")
  * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+  * @Hateoas\Relation("self", href = "expr('/bilemo/products/' ~ object.getId())")
  */
 class Products
 {

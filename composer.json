@@ -2,41 +2,28 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "andrey-helldar/api-response": "^5.3",
-        "jms/serializer-bundle": "^3.5",
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "friendsofsymfony/rest-bundle": "^2.5",
+        "jms/serializer-bundle": "^3.3",
         "lexik/jwt-authentication-bundle": "^2.6",
-        "sensio/framework-extra-bundle": "^5.1",
-        "symfony/asset": "5.0.*",
-        "symfony/console": "5.0.*",
-        "symfony/dotenv": "5.0.*",
-        "symfony/expression-language": "5.0.*",
-        "symfony/flex": "^1.3.1",
-        "symfony/form": "5.0.*",
-        "symfony/framework-bundle": "5.0.*",
-        "symfony/http-client": "5.0.*",
-        "symfony/intl": "5.0.*",
-        "symfony/mailer": "5.0.*",
-        "symfony/monolog-bundle": "^3.1",
-        "symfony/notifier": "5.0.*",
-        "symfony/orm-pack": "*",
-        "symfony/process": "5.0.*",
-        "symfony/security-bundle": "5.0.*",
-        "symfony/serializer-pack": "*",
-        "symfony/string": "5.0.*",
-        "symfony/translation": "5.0.*",
-        "symfony/twig-pack": "*",
-        "symfony/validator": "5.0.*",
-        "symfony/web-link": "5.0.*",
-        "symfony/yaml": "5.0.*"
-    },
-    "require-dev": {
-        "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
+        "sensio/framework-extra-bundle": "^5.3",
+        "symfony/asset": "4.3.*",
+        "symfony/console": "4.3.*",
+        "symfony/dotenv": "4.3.*",
+        "symfony/flex": "^1.1",
+        "symfony/form": "4.3.*",
+        "symfony/framework-bundle": "4.3.*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/security-bundle": "4.3.*",
+        "symfony/translation": "4.3.*",
+        "symfony/validator": "4.3.*",
+        "symfony/yaml": "4.3.*",
+        "willdurand/hateoas": "^3.6",
+        "willdurand/hateoas-bundle": "^2.1"
     },
     "config": {
         "preferred-install": {
@@ -58,7 +45,6 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
@@ -80,8 +66,13 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
-            "require": "5.0.*"
+            "allow-contrib": true,
+            "require": "4.3.*"
         }
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.11",
+        "symfony/profiler-pack": "^1.0",
+        "symfony/web-server-bundle": "4.3.*"
     }
 }

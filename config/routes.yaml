@@ -1,3 +1,6 @@
+api_login_check:
+  path: /bilemo/login_check
+
 products:
   path: /bilemo/products
   controller: App\Controller\ProductsController::ShowProducts
@@ -6,23 +9,13 @@ singleproducts:
   path: /bilemo/products/{id}
   controller: App\Controller\ProductsController::ShowSingleProducts
 
-
-adduser:
-  path: /bilemo/users/{clientsid}/adduser
-  controller: App\Controller\UsersController::AddUser
-
-
-deleteuser:
-  path: /bilemo/users/{clientsid}/deluser/{usersid}
-  controller: App\Controller\UsersController::DeleteUser
-
 users:
-  path: /bilemo/users/{clientsid}
-  controller: App\Controller\UsersController::ShowUsers
+  path: /bilemo/users
+  controller: App\Controller\UsersController::Users
 
 singleuser:
-  path: /bilemo/users/{clientsid}/{usersid}
-  controller: App\Controller\UsersController::ShowSingleUsers
+  path: /bilemo/users/{usersid}
+  controller: App\Controller\UsersController::SingleUser
 
 
 

@@ -19,21 +19,21 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
-    public function findAllUsers($clientsid)
+    public function findAllUsers($clientid)
     {
       return $this->createQueryBuilder('u')
           ->select('u.id,u.name,u.firstname,u.email')
-          ->where("u.client = $clientsid")
+          ->where("u.client = $clientid")
           ->orderBy('u.id')
           ->getQuery()
           ->getResult();
     }
 
-    public function findSingleUsers($clientsid, $usersid)
+    public function findSingleUsers($clientid, $usersid)
     {
       return $this->createQueryBuilder('u')
           ->select('u.id,u.name,u.firstname,u.email,u.number,u.street,u.postalCode,u.city,u.tel')
-          ->where("u.client = $clientsid")
+          ->where("u.client = $clientid")
           ->andWhere("u.id = $usersid")
           ->getQuery()
           ->getResult();
