@@ -1,5 +1,5 @@
 api_login_check:
-  path: /bilemo/login_check
+  path: /bilemo/login
 
 products:
   path: /bilemo/products
