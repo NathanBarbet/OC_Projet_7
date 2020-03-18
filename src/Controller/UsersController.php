@@ -51,8 +51,13 @@ class UsersController extends AbstractController
       $client = $this->getUser();
       $clientid = $client->getId();
 
+      $data = $request->getContent();
+
+      $user = $serialize->deserialize($data, 'App\Entity\Users', 'json');
+
+
       // vérification nom
-      $name = htmlspecialchars(filter_input(INPUT_POST, 'name'));
+      $name = $user->getName();
       if (isset($name) && ctype_alpha($name)) {
         $user->setName($name);
       }
@@ -62,7 +67,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification prénom
-      $firstname = htmlspecialchars(filter_input(INPUT_POST, 'firstname'));
+      $firstname = $user->getFirstname();
       if (isset($firstname) && ctype_alpha($firstname)) {
         $user->setFirstname($firstname);
       }
@@ -72,7 +77,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification email
-      $email = htmlspecialchars(filter_input(INPUT_POST, 'email'));
+      $email = $user->getEmail();
       if (isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $user->setEmail($email);
       }
@@ -82,7 +87,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification numero de rue
-      $number = htmlspecialchars(filter_input(INPUT_POST, 'number'));
+      $number = $user->getNumber();
       if (isset($number) && is_numeric($number)) {
         $user->setNumber($number);
       }
@@ -92,7 +97,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification rue
-      $street = htmlspecialchars(filter_input(INPUT_POST, 'street'));
+      $street = $user->getStreet();
       if (isset($street) && ctype_alpha($street)) {
         $user->setStreet($street);
       }
@@ -102,7 +107,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification code postal
-      $postalCode = htmlspecialchars(filter_input(INPUT_POST, 'postalCode'));
+      $postalCode = $user->getPostalCode();
       if (isset($postalCode) && is_numeric($postalCode)) {
         $user->setPostalCode($postalCode);
       }
@@ -112,7 +117,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification ville
-      $city = htmlspecialchars(filter_input(INPUT_POST, 'city'));
+      $city = $user->getCity();
       if (isset($city) && ctype_alpha($city)) {
         $user->setCity($city);
       }
@@ -122,7 +127,7 @@ class UsersController extends AbstractController
       // ***
 
       // vérification téléphone
-      $tel = htmlspecialchars(filter_input(INPUT_POST, 'tel'));
+      $tel = $user->getTel();
       if (isset($tel) && preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $tel))
       {
         $meta_carac = array("-", ".", " ");
