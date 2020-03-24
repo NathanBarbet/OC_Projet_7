@@ -19,12 +19,14 @@ class ProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
-    public function findAllProducts()
+    public function findAllProducts($page, $limit)
     {
       return $this->createQueryBuilder('p')
-          ->select('p.id,p.name,p.brand,p.model')
+          ->select("p.id,p.name,p.brand,p.model,CONCAT('http://localhost/P7/public/bilemo/products/',p.id) AS GET")
           ->orderBy('p.id')
           ->getQuery()
+          ->setFirstResult(($page - 1) * $limit)
+          ->setMaxResults($limit)
           ->getResult();
     }
 

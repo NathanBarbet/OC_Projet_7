@@ -10,6 +10,7 @@
         "friendsofsymfony/rest-bundle": "^2.5",
         "jms/serializer-bundle": "^3.3",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "nelmio/api-doc-bundle": "^3.6",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",
@@ -22,8 +23,7 @@
         "symfony/translation": "4.3.*",
         "symfony/validator": "4.3.*",
         "symfony/yaml": "4.3.*",
-        "willdurand/hateoas": "^3.6",
-        "willdurand/hateoas-bundle": "^2.1"
+        "willdurand/hateoas-bundle": "dev-master"
     },
     "config": {
         "preferred-install": {

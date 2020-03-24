@@ -17,7 +17,6 @@ class Users
      *
      * @ORM\Column(name="ID", type="integer", nullable=false)
      * @ORM\Id
-     * @JMS\Serializer\Annotation\Type("int")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -25,7 +24,6 @@ class Users
     /**
      * @var string
      *
-     * @JMS\Serializer\Annotation\Type("string")
      * @ORM\Column(name="Name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -33,7 +31,6 @@ class Users
     /**
      * @var string
      *
-     * @JMS\Serializer\Annotation\Type("string")
      * @ORM\Column(name="Firstname", type="string", length=255, nullable=false)
      */
     private $firstname;
@@ -41,7 +38,6 @@ class Users
     /**
      * @var string
      *
-     * @JMS\Serializer\Annotation\Type("string")
      * @ORM\Column(name="Email", type="string", length=255, nullable=false)
      */
     private $email;
@@ -49,7 +45,6 @@ class Users
     /**
      * @var int
      *
-     * @JMS\Serializer\Annotation\Type("int")
      * @ORM\Column(name="Number", type="integer", nullable=false)
      */
     private $number;
@@ -57,7 +52,6 @@ class Users
     /**
      * @var string
      *
-     * @JMS\Serializer\Annotation\Type("string")
      * @ORM\Column(name="Street", type="string", length=255, nullable=false)
      */
     private $street;
@@ -65,7 +59,6 @@ class Users
     /**
      * @var int
      *
-     * @JMS\Serializer\Annotation\Type("int")
      * @ORM\Column(name="Postal_code", type="integer", nullable=false)
      */
     private $postalCode;
@@ -73,7 +66,6 @@ class Users
     /**
      * @var string
      *
-     * @JMS\Serializer\Annotation\Type("string")
      * @ORM\Column(name="City", type="string", length=255, nullable=false)
      */
     private $city;
@@ -81,7 +73,6 @@ class Users
     /**
      * @var string
      *
-     * @JMS\Serializer\Annotation\Type("string")
      * @ORM\Column(name="Tel", type="string", length=50, nullable=false)
      */
     private $tel;
@@ -205,6 +196,30 @@ class Users
     public function setClient(?Clients $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getLinkDelete(): ?string
+    {
+        return $this->linkDelete;
+    }
+
+    public function setLinkDelete(string $linkDelete): self
+    {
+        $this->linkDelete = $linkDelete;
+
+        return $this;
+    }
+
+    public function getLinkGet(): ?string
+    {
+        return $this->linkGet;
+    }
+
+    public function setLinkGet(string $linkGet): self
+    {
+        $this->linkGet = $linkGet;
 
         return $this;
     }
