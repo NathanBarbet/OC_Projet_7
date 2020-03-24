@@ -75,7 +75,6 @@ class UsersController extends AbstractController
         'data' => $data
       ]));
 
-      return $response;
     }
 
     else {
@@ -309,7 +308,7 @@ class UsersController extends AbstractController
     * @Security(name="Bearer")
     *
     */
-  public function SingleUserDelete($usersid, SerializerInterface $serialize, Request $request): Response
+  public function SingleUserDelete($usersid, SerializerInterface $serialize, Request $request)
   {
 
     if ($request->isMethod('DELETE')) {
