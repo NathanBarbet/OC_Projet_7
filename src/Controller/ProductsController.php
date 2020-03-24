@@ -47,7 +47,7 @@ class ProductsController extends AbstractController
   {
 
     if ($request->isMethod('GET')) {
-
+      
       $page = $request->query->get('page');
       $limit = 5;
 
