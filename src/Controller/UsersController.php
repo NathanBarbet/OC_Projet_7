@@ -308,7 +308,7 @@ class UsersController extends AbstractController
     * @Security(name="Bearer")
     *
     */
-  public function SingleUserDelete($usersid, SerializerInterface $serialize, Request $request)
+  public function SingleUserDelete($usersid, Request $request)
   {
 
     if ($request->isMethod('DELETE')) {

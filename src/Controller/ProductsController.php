@@ -47,7 +47,7 @@ class ProductsController extends AbstractController
   {
 
     if ($request->isMethod('GET')) {
-      
+
       $page = $request->query->get('page');
       $limit = 5;
 
@@ -97,7 +97,7 @@ class ProductsController extends AbstractController
     */
   public function ShowSingleProducts($id, SerializerInterface $serialize, Request $request): Response
   {
-
+ 
     if ($request->isMethod('GET')) {
 
       $repository = $this->getDoctrine()->getRepository(Products::class);
