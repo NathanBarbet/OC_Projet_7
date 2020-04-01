@@ -20,11 +20,12 @@ class ClientsFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $client = new Clients();
-        $client->setName('PhoneWall.fr');
-        $client->setEmail('test@test.fr');
+        $client->setName('SmartPhones.com');
+        $client->setEmail('test4@test.fr');
 
         $password = $this->encoder->encodePassword($client, 'test');
         $client->setPassword($password);
+        $client->setRoles('["ROLE_USER"]');
 
 
         $manager->persist($client);

@@ -32,6 +32,11 @@ class ProductsController extends AbstractController
   /**
        * @Rest\Get("/bilemo/products", name="products")
        *
+       * @Rest\QueryParam(
+       *     name="page",
+       *     default="?page=1",
+       *     description="number of page"
+       * )
        * @SWG\Response(
        *     response=200,
        *     description="Returned list of all products.",
@@ -39,6 +44,10 @@ class ProductsController extends AbstractController
        *         type="array",
        *         @SWG\Items(ref=@Model(type=Products::class))
        *     )
+       * )
+       * @SWG\Response(
+       *     response=405,
+       *     description="Returned when method is not GET"
        * )
        * @SWG\Tag(name="products")
        * @Security(name="Bearer")
@@ -97,7 +106,7 @@ class ProductsController extends AbstractController
     */
   public function ShowSingleProducts($id, SerializerInterface $serialize, Request $request): Response
   {
- 
+
     if ($request->isMethod('GET')) {
 
       $repository = $this->getDoctrine()->getRepository(Products::class);

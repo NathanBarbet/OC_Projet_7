@@ -36,6 +36,11 @@ class UsersController extends AbstractController
     *     path = "/bilemo/users",
     *     name = "usersshow"
     * )
+    * @Rest\QueryParam(
+    *     name="page",
+    *     default="?page=1",
+    *     description="number of page"
+    * )
     * @Rest\View
     *
     *
@@ -93,7 +98,7 @@ class UsersController extends AbstractController
     *
     * @SWG\Response(
     *     response=200,
-    *     description="Add a user.",
+    *     description="Send 'name', 'firstname', 'email', 'number', 'street', 'postalCode', 'city' and 'tel' in json format.Add a user.",
     *     @SWG\Schema(
     *         type="array",
     *         @SWG\Items(ref=@Model(type=Users::class))
@@ -346,7 +351,7 @@ class UsersController extends AbstractController
     *
     * @SWG\Response(
     *     response=200,
-    *     description="Login to api",
+    *     description="Send 'username' and 'password' in json format. Login to api",
     * )
     * @SWG\Response(
     *     response=404,
@@ -354,7 +359,7 @@ class UsersController extends AbstractController
     * )
     * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not Delete"
+    *     description="Returned when method is not Post"
     * )
     * @SWG\Tag(name="login")
     *
