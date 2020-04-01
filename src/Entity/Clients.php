@@ -97,6 +97,13 @@ class Clients implements UserInterface
         return $this->roles;
     }
 
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getSalt()
     {
         return null;

@@ -200,29 +200,4 @@ class Users
         return $this;
     }
 
-    public function getLinkDelete(): ?string
-    {
-        return $this->linkDelete;
-    }
-
-    public function setLinkDelete(string $linkDelete): self
-    {
-        $this->linkDelete = $linkDelete;
-
-        return $this;
-    }
-
-    public function getLinkGet(): ?string
-    {
-        return $this->linkGet;
-    }
-
-    public function setLinkGet(string $linkGet): self
-    {
-        $this->linkGet = $linkGet;
-
-        return $this;
-    }
-
-
 }
