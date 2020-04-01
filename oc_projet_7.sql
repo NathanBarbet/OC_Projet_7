@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 01 avr. 2020 à 10:33
+-- Généré le :  mer. 01 avr. 2020 à 10:51
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `email` varchar(255) CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL,
   `Date_register` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `password` varchar(255) CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL,
-  `roles` json DEFAULT NULL,
+  `roles` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf32;
 
