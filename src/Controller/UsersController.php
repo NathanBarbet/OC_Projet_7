@@ -169,7 +169,7 @@ class UsersController extends AbstractController
 
       // vérification rue
       $street = $user->getStreet();
-      if (isset($street) && ctype_alpha($street)) {
+      if (isset($street)) {
         $user->setStreet($street);
       }
       else {
@@ -179,7 +179,7 @@ class UsersController extends AbstractController
 
       // vérification code postal
       $postalCode = $user->getPostalCode();
-      if (isset($postalCode) && is_numeric($postalCode)) {
+      if (isset($postalCode) && is_numeric($number)) {
         $user->setPostalCode($postalCode);
       }
       else {
