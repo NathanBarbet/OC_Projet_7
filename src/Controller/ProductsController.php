@@ -34,7 +34,7 @@ class ProductsController extends AbstractController
        *
        * @Rest\QueryParam(
        *     name="page",
-       *     default="?page=1",
+       *     default="1",
        *     description="number of page"
        * )
        * @SWG\Response(
@@ -55,15 +55,30 @@ class ProductsController extends AbstractController
   public function ShowProducts(SerializerInterface $serialize, Request $request): Response
   {
 
-    if ($request->isMethod('GET')) {
-
       $page = $request->query->get('page');
       $limit = 5;
+
+    if (is_numeric($page)) {
 
       $repository = $this->getDoctrine()->getRepository(Products::class);
       $products = $repository->findAllProducts($page, $limit);
 
-      $data = $serialize->serialize($products, 'json');
+      $allProducts = array();
+
+      foreach ($products as $key => $product ) {
+        array_push($allProducts, [
+        'id'=>$product['id'],
+        'name'=>$product['name'],
+        'brand'=>$product['brand'],
+        'model'=>$product['model'],
+        '_links'=>[
+          'get'=>
+          ['href'=>'/users/'.$product['id']]
+        ]
+        ]);
+      }
+
+      $data = $serialize->serialize($allProducts, 'json');
 
       return new Response($this->twig->render('base.html.twig', [
         'data' => $data
@@ -72,7 +87,7 @@ class ProductsController extends AbstractController
     }
 
     else {
-      return api_response('Utiliser la methode GET', 405);
+      return api_response('Numero de page invalide', 400);
     }
 
   }
@@ -106,7 +121,7 @@ class ProductsController extends AbstractController
     */
   public function ShowSingleProducts($id, SerializerInterface $serialize, Request $request): Response
   {
-
+   if (is_numeric($id)) {
     if ($request->isMethod('GET')) {
 
       $repository = $this->getDoctrine()->getRepository(Products::class);
@@ -127,6 +142,9 @@ class ProductsController extends AbstractController
     else {
       return api_response('Utiliser la methode GET', 405);
     }
-
   }
+  else {
+    return api_response('Produit invalide', 400);
+  }
+ }
 }
