@@ -16,9 +16,7 @@ for installation:
 
 4/ Edit the .env (DATABASE_URL) file with your own database login.
 
-5/ Edit repository files for change links with your own adress.
-
-6/ Generate new SSH key for JWT Bundle :
+5/ Generate new SSH key for JWT Bundle :
 
 Generate the SSH keys:
 
@@ -28,4 +26,4 @@ $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rs
 
 $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 
-7/ Past your passphrase in .env file at the line "JWT_PASSPHRASE=".
+6/ Past your passphrase in .env file at the line "JWT_PASSPHRASE=".
