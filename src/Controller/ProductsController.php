@@ -39,15 +39,19 @@ class ProductsController extends AbstractController
        * )
        * @SWG\Response(
        *     response=200,
-       *     description="Returned list of all products.",
+       *     description="Returns list of all products.",
        *     @SWG\Schema(
        *         type="array",
        *         @SWG\Items(ref=@Model(type=Products::class))
        *     )
        * )
        * @SWG\Response(
+       *     response=400,
+       *     description="Page number is invalid"
+       * )
+       * @SWG\Response(
        *     response=405,
-       *     description="Returned when method is not GET"
+       *     description="Returned when method is not allowed"
        * )
        * @SWG\Tag(name="products")
        * @Security(name="Bearer")
@@ -113,8 +117,12 @@ class ProductsController extends AbstractController
     *     description="Returned when ressource is not found"
     * )
     * @SWG\Response(
+    *     response=400,
+    *     description="Product is invalid"
+    * )
+    * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not GET"
+    *     description="Returned when method is not allowed"
     * )
     * @SWG\Tag(name="products/{id}")
     * @Security(name="Bearer")
