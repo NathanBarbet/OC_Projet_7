@@ -76,7 +76,7 @@ class UsersController extends AbstractController
 
       $allUsers = array();
 
-      foreach ($users as $key => $user ) {
+      foreach ($users as $user ) {
         array_push($allUsers, [
         'id'=>$user['id'],
         'name'=>$user['name'],
@@ -304,7 +304,7 @@ class UsersController extends AbstractController
 
       $tabUser = array();
 
-      foreach ($users as $key => $user ) {
+      foreach ($users as $user ) {
         array_push($tabUser, [
         'id'=>$user['id'],
         'name'=>$user['name'],

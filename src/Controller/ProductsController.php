@@ -65,7 +65,7 @@ class ProductsController extends AbstractController
 
       $allProducts = array();
 
-      foreach ($products as $key => $product ) {
+      foreach ($products as $product ) {
         array_push($allProducts, [
         'id'=>$product['id'],
         'name'=>$product['name'],
