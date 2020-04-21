@@ -22,7 +22,7 @@ class UsersRepository extends ServiceEntityRepository
     public function findAllUsers($clientid, $page, $limit)
     {
       return $this->createQueryBuilder('u')
-          ->select("u.id,u.name,u.firstname,u.email,CONCAT('http://localhost/P7/public/bilemo/users/',u.id) AS GET,CONCAT('http://localhost/P7/public/bilemo/users/',u.id) AS DELETE")
+          ->select("u.id,u.name,u.firstname,u.email")
           ->where("u.client = $clientid")
           ->orderBy('u.id')
           ->getQuery()
@@ -34,7 +34,7 @@ class UsersRepository extends ServiceEntityRepository
     public function findSingleUsers($clientid, $usersid)
     {
       return $this->createQueryBuilder('u')
-          ->select("u.id,u.name,u.firstname,u.email,u.number,u.street,u.postalCode,u.city,u.tel,CONCAT('http://localhost/P7/public/bilemo/users/',u.id) AS DELETE")
+          ->select("u.id,u.name,u.firstname,u.email,u.number,u.street,u.postalCode,u.city,u.tel")
           ->where("u.client = $clientid")
           ->andWhere("u.id = $usersid")
           ->getQuery()

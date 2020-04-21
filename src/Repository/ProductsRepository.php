@@ -22,7 +22,7 @@ class ProductsRepository extends ServiceEntityRepository
     public function findAllProducts($page, $limit)
     {
       return $this->createQueryBuilder('p')
-          ->select("p.id,p.name,p.brand,p.model,CONCAT('http://localhost/P7/public/bilemo/products/',p.id) AS GET")
+          ->select("p.id,p.name,p.brand,p.model")
           ->orderBy('p.id')
           ->getQuery()
           ->setFirstResult(($page - 1) * $limit)

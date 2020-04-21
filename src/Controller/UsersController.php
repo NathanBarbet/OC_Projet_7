@@ -38,7 +38,7 @@ class UsersController extends AbstractController
     * )
     * @Rest\QueryParam(
     *     name="page",
-    *     default="?page=1",
+    *     default="1",
     *     description="number of page"
     * )
     * @Rest\View
@@ -63,10 +63,10 @@ class UsersController extends AbstractController
   public function UsersShow(SerializerInterface $serialize, Request $request): Response
   {
 
-    if ($request->isMethod('GET')) {
-
       $page = $request->query->get('page');
       $limit = 5;
+
+      if (is_numeric($page)) {
 
       $client = $this->getUser();
       $clientid = $client->getId();
@@ -74,7 +74,24 @@ class UsersController extends AbstractController
       $repository = $this->getDoctrine()->getRepository(Users::class);
       $users = $repository->findAllUsers($clientid, $page, $limit);
 
-      $data = $serialize->serialize($users, 'json');
+      $allUsers = array();
+
+      foreach ($users as $key => $user ) {
+        array_push($allUsers, [
+        'id'=>$user['id'],
+        'name'=>$user['name'],
+        'firstname'=>$user['firstname'],
+        'email'=>$user['email'],
+        '_links'=>[
+          'get'=>
+          ['href'=>'/users/'.$user['id']],
+          'delete'=>
+          ['href'=>'/users/'.$user['id']]
+        ]
+        ]);
+      }
+
+      $data = $serialize->serialize($allUsers, 'json');
 
       return new Response($this->twig->render('base.html.twig', [
         'data' => $data
@@ -83,7 +100,7 @@ class UsersController extends AbstractController
     }
 
     else {
-      return api_response('Utiliser la methode GET pour afficher les utilisateurs', 405);
+      return api_response('Numero de page invalide', 400);
     }
   }
 
@@ -95,6 +112,25 @@ class UsersController extends AbstractController
     * )
     * @Rest\View
     *
+    *      @SWG\Parameter(
+    *          name="JSON",
+    *          in="body",
+    *          description="User in JSON format",
+    *          required=true,
+    *          format="application/json",
+    *          @SWG\Schema(
+    *              type="object",
+    *              @SWG\Property(property="name", type="string", example="prenom"),
+    *              @SWG\Property(property="firstname", type="string", example="nom"),
+    *              @SWG\Property(property="email", type="string", example="test@test.fr"),
+    *              @SWG\Property(property="number", type="string", example="55"),
+    *              @SWG\Property(property="street", type="string", example="rue test"),
+    *              @SWG\Property(property="postal_code", type="string", example="65500"),
+    *              @SWG\Property(property="city", type="string", example="ville"),
+    *              @SWG\Property(property="tel", type="string", example="0123456789"),
+    *          )
+    *
+    *      )
     *
     * @SWG\Response(
     *     response=200,
@@ -217,7 +253,7 @@ class UsersController extends AbstractController
       $this->em->persist($user);
       $this->em->flush();
 
-      return api_response('L utilisateur à été ajouter', 200);
+      return api_response('L utilisateur à été ajouter', 201);
     }
 
     else {
@@ -257,6 +293,7 @@ class UsersController extends AbstractController
   public function SingleUserShow($usersid, SerializerInterface $serialize, Request $request): Response
   {
 
+  if (is_numeric($usersid)) {
     if ($request->isMethod('GET')) {
 
       $client = $this->getUser();
@@ -265,9 +302,28 @@ class UsersController extends AbstractController
       $repository = $this->getDoctrine()->getRepository(Users::class);
       $users = $repository->findSingleUsers($clientid, $usersid);
 
+      $tabUser = array();
+
+      foreach ($users as $key => $user ) {
+        array_push($tabUser, [
+        'id'=>$user['id'],
+        'name'=>$user['name'],
+        'firstname'=>$user['firstname'],
+        'email'=>$user['email'],
+        'number'=>$user['number'],
+        'street'=>$user['street'],
+        'postalCode'=>$user['postalCode'],
+        'city'=>$user['city'],
+        'tel'=>$user['tel'],
+        '_links'=>[
+          'delete'=>
+          ['href'=>'/users/'.$user['id']]
+        ]
+        ]);
+      }
 
       if (!empty($users)) {
-      $data = $serialize->serialize($users, 'json');
+      $data = $serialize->serialize($tabUser, 'json');
 
       return new Response($this->twig->render('base.html.twig', [
         'data' => $data
@@ -282,6 +338,10 @@ class UsersController extends AbstractController
       return api_response('Utiliser la methode GET pour afficher cet utilisateur', 405);
     }
   }
+  else {
+    return api_response('Utilisateur invalide', 400);
+  }
+}
 
 
 
@@ -315,31 +375,42 @@ class UsersController extends AbstractController
     */
   public function SingleUserDelete($usersid, Request $request)
   {
-
+   if (is_numeric($usersid)) {
     if ($request->isMethod('DELETE')) {
 
       $client = $this->getUser();
       $clientid = $client->getId();
 
       $repository = $this->getDoctrine()->getRepository(Users::class);
-      $user = $repository->findOneBy(['id' => $usersid, 'client' => $clientid]);
+      $user = $repository->findOneBy(['id' => $usersid]);
+
+    if ($clientid == $user->getClient()->getId()) {
 
       if (!empty($user)) {
       $this->em->remove($user);
       $this->em->flush();
 
-      return api_response('L utilisateur à été supprimer', 200);
+      return api_response('', 204);
       }
 
       else {
         return api_response('Cet utilisateur n existe pas', 404);
       }
     }
+    else {
+      return api_response('Vous ne pouvez pas supprimer cet utilisateur', 403);
+    }
+  }
 
     else {
       return api_response('Utiliser la methode DELETE pour supprimer cet utilisateur', 405);
     }
   }
+  else {
+    return api_response('Utilisateur invalide', 400);
+  }
+}
+
 
   /**
     * @Rest\Post(
@@ -348,6 +419,19 @@ class UsersController extends AbstractController
     * )
     * @Rest\View
     *
+    *      @SWG\Parameter(
+    *          name="login",
+    *          in="body",
+    *          description="JSON login",
+    *          required=true,
+    *          format="application/json",
+    *          @SWG\Schema(
+    *              type="object",
+    *              @SWG\Property(property="username", type="string", example="test@test.fr"),
+    *              @SWG\Property(property="password", type="string", example="test"),
+    *          )
+    *
+    *      )
     *
     * @SWG\Response(
     *     response=200,
