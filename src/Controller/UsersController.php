@@ -53,8 +53,12 @@ class UsersController extends AbstractController
     *     )
     * )
     * @SWG\Response(
+    *     response=400,
+    *     description="Page number is invalid"
+    * )
+    * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not GET"
+    *     description="Returned when method is not allowed"
     * )
     * @SWG\Tag(name="users")
     * @Security(name="Bearer")
@@ -133,16 +137,16 @@ class UsersController extends AbstractController
     *      )
     *
     * @SWG\Response(
-    *     response=200,
-    *     description="Send 'name', 'firstname', 'email', 'number', 'street', 'postalCode', 'city' and 'tel' in json format.Add a user.",
-    *     @SWG\Schema(
-    *         type="array",
-    *         @SWG\Items(ref=@Model(type=Users::class))
-    *     )
+    *     response=201,
+    *     description="Add a new user",
+    * )
+    * @SWG\Response(
+    *     response=400,
+    *     description="Field is invalid"
     * )
     * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not POST"
+    *     description="Returned when method is not allowed"
     * )
     * @SWG\Tag(name="users")
     * @Security(name="Bearer")
@@ -272,7 +276,7 @@ class UsersController extends AbstractController
     *
     * @SWG\Response(
     *     response=200,
-    *     description="View details of a user",
+    *     description="Returns details of a user",
     *     @SWG\Schema(
     *         type="array",
     *         @SWG\Items(ref=@Model(type=Users::class))
@@ -280,11 +284,15 @@ class UsersController extends AbstractController
     * )
     * @SWG\Response(
     *     response=404,
-    *     description="Returned when ressource is not found"
+    *     description="Returned when user is not found"
+    * )
+    * @SWG\Response(
+    *     response=400,
+    *     description="User is invalid"
     * )
     * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not Get"
+    *     description="Returned when method is not allowed"
     * )
     * @SWG\Tag(name="users/{usersid}")
     * @Security(name="Bearer")
@@ -354,20 +362,24 @@ class UsersController extends AbstractController
     *
     *
     * @SWG\Response(
-    *     response=200,
+    *     response=204,
     *     description="Delete a specific user",
-    *     @SWG\Schema(
-    *         type="array",
-    *         @SWG\Items(ref=@Model(type=Users::class))
-    *     )
     * )
     * @SWG\Response(
     *     response=404,
-    *     description="Returned when ressource is not found"
+    *     description="Returned when user is not found"
+    * )
+    * @SWG\Response(
+    *     response=400,
+    *     description="User is invalid"
+    * )
+    * @SWG\Response(
+    *     response=403,
+    *     description="Returned when if the user does not belong to you"
     * )
     * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not Delete"
+    *     description="Returned when method is not allowed"
     * )
     * @SWG\Tag(name="users/{usersid}")
     * @Security(name="Bearer")
@@ -435,15 +447,15 @@ class UsersController extends AbstractController
     *
     * @SWG\Response(
     *     response=200,
-    *     description="Send 'username' and 'password' in json format. Login to api",
+    *     description="Returns a JWT token",
     * )
     * @SWG\Response(
-    *     response=404,
-    *     description="Returned when ressource is not found"
+    *     response=401,
+    *     description="Returned when invalid credentials"
     * )
     * @SWG\Response(
     *     response=405,
-    *     description="Returned when method is not Post"
+    *     description="Returned when method is not allowed"
     * )
     * @SWG\Tag(name="login")
     *
