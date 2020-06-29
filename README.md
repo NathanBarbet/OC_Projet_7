@@ -4,6 +4,7 @@
 
 Php version : 7.3.12
 
+Documentation : http://nathanbarbet.fr/P7/public/bilemo/doc
 Exemple : http://nathanbarbet.fr/P7/public
 
 for installation:
